@@ -23,6 +23,7 @@ aws_connection = S3Connection( host = location )
 bucket = aws_connection.get_bucket( bucketName , validate=False)
 uavs = bucket.list()
 uavsOfIntrest = []
+totalUavs = 0
 
 for uav in uavs:
     lastModified = uav.__getattribute__('last_modified')
@@ -33,16 +34,13 @@ for uav in uavs:
 
     if diff <= minimumDays:
         uavsOfIntrest.append(uav)
+        totalUavs += 1
         #print( date , " date modified - today's date = " , diff )
 
 print(uavsOfIntrest)
-    
-#time aws s3api list-objects --bucket kds-uav-dev --query "Contents[?LastModified>='2019-06-01T00:00:000Z'].{Key: Key , LastModified: LastModified}"
+print(totalUavs)
 
-# real    0m7.586s
-# user    0m1.233s
-# sys     0m0.128s
 
-# real    0m7.781s
-# user    0m1.563s
-# sys     0m0.151s
+# DATE=$(date --date="7 days ago" "+%Y-%m-%d") && time aws s3api list-objects --bucket kds-uav-dev --query "Contents[?LastModified>='$DATE'].{Key: Key , LastModified: LastModified}"
+# DATE=$(date '+%Y-%m-%d %H:%M:%S' --date="7 days ago") && time aws s3api list-objects --bucket kds-uav-dev --query "Contents[?LastModified>='$DATE'].{Key: Key , LastModified: LastModified}"
+# date '+%Y-%m-%d %H:%M:%S' --date="7 days ago"
