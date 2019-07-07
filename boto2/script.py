@@ -33,7 +33,16 @@ for uav in uavs:
 
     if diff <= minimumDays:
         uavsOfIntrest.append(uav)
-        print( date , " date modified - today's date = " , diff )
+        #print( date , " date modified - today's date = " , diff )
 
-#print(uavsOfIntrest)
+print(uavsOfIntrest)
     
+#time aws s3api list-objects --bucket kds-uav-dev --query "Contents[?LastModified>='2019-06-01T00:00:000Z'].{Key: Key , LastModified: LastModified}"
+
+# real    0m7.586s
+# user    0m1.233s
+# sys     0m0.128s
+
+# real    0m7.781s
+# user    0m1.563s
+# sys     0m0.151s

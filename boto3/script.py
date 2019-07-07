@@ -2,7 +2,7 @@
 import Bucket
 import Collection
 
-bucket = Bucket.Bucket('testbucketboto11')
+bucket = Bucket.Bucket('kds-uav-dev')
 uavs = Collection.Collection().addUav(bucket.getUavs())
 print (uavs)
 
